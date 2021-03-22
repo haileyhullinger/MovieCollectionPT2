@@ -1,16 +1,27 @@
 ﻿@model IEnumerable<Movie>
 <div>
     <h2>Here is a list of all the movies in the Joel Hilton Film Collection*</h2> <br />
-    <table>
+    <table class="table">
         <thead>
-            <tr><th>Movie ID</th><th>Category   </th><th>Title   </th><th>Director   </th><th>Rating   </th><th>Edited?   </th> <th>Year(s)   </th> <th>Lent To: </th><th>Notes:  </th> <th></th><th></th></tr>
+            <tr>
+                <th>Category</th>
+                <th>Title</th>
+                <th>Director</th>
+                <th>Rating</th>
+                <th>Edited?</th>
+                <th>Year(s)</th>
+                <th>Lent To: </th>
+                <th>Notes:  </th> 
+            <!--rows for edit and delete buttons-->
+                <th></th><th></th>
+            </tr>
         </thead>
 
         <tbody>
             <!--for loop to go through and list all the movies in the model-->
             @foreach (HaileyHullingerAssignment9.Models.Movie x in Model)
             {
-                <!--if statment to check if the movie's title is independence day. If the title is "Independence Day" it will not be shown the the models list.-->
+                <!--if statment to check if the movie's title is independence day. If the title is "Independence Day" it will not be shown the the movies list, but it is still technically added to the database-->
                 @if (x.Title == "Independence Day")
                 {
 
@@ -19,7 +30,6 @@
                 else
                 {
             <tr>
-                <td>@x.MovieID</td>
                 <td>@x.Category   </td>
                 <td>@x.Title   </td>
                 <td>@x.Director   </td>
@@ -28,16 +38,7 @@
                 <td>@x.Year     </td>
                 <td>@x.LentTo </td>
                 <td>@x.Notes  </td>
-                <!--button to remove-->
-                <td>
-                    <form asp-action="Delete" method="post">
-                        <input type="hidden" name="MovieID"
-                               value="@x.MovieID" />
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            Delete
-                        </button>
-                    </form>
-                </td>
+
 
                 <!--button to edit-->
                 <td>
@@ -49,18 +50,26 @@
                         </button>
                     </form>
                 </td>
+
+                <!--button to remove-->
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="MovieID"
+                               value="@x.MovieID" />
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
             </tr>
                 }
 
             }
-
-
-
-
         </tbody>
     </table>
 
     <br /><br /><br /><br />
+
     <p>
         <i>
             *The movie “Independence Day" is not included in this list

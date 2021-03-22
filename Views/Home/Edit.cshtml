@@ -3,11 +3,11 @@
     <p>Edit a Movie</p>
 
 
-    <form asp-action="Edit" method="post">
+    <form asp-action="Save" method="post">
         <!--input for category-->
         <div>
             <label>Category: </label>
-            <input asp-for="Category"/>
+            <input asp-for="Category" />
         </div>
         <br />
 
@@ -69,9 +69,11 @@
             <input asp-for="Notes" />
         </div>
         <br />
-
-        <button type="submit">Save</button>
-
+        <!--once save button is hit, pass in movie id-->
+                <input type="hidden" name="MovieID" asp-for="MovieID"/>
+                <button type="submit">
+                    Save
+                </button>
     </form>
     <div asp-validation-summary="All"></div>
 </div>

@@ -19,18 +19,20 @@ namespace HaileyHullingerAssignment9.Controllers
         {
             context = con;
         }
+
+        //Index action
         public IActionResult Index()
         {
             return View();
         }
 
+        //podcast action
         public IActionResult Podcast()
         {
             return View();
         }
 
         //action for loadig the MovieForm page
-        //simply loading the page, not accepting any information
         //will return the view with the same name as method
         [HttpGet]
         public IActionResult MovieForm()
@@ -44,7 +46,7 @@ namespace HaileyHullingerAssignment9.Controllers
         [HttpPost]
         public IActionResult MovieForm(Movie movieResponse)
         {
-
+            //check if changes are valid, if so add to database, if not return asp validation summary
             if (ModelState.IsValid)
             {
                 //update database
@@ -62,7 +64,7 @@ namespace HaileyHullingerAssignment9.Controllers
 
         }
 
-        //action for loading the MovieList page
+        //action for loading the MovieList page, pass in the db context to the view
         [HttpGet]
         public IActionResult MovieList()
         {
@@ -89,10 +91,36 @@ namespace HaileyHullingerAssignment9.Controllers
             return View(movie);
         }
 
+        //when the SAVE button is pressed on the edit.cshtml page, the movie and the movie ID is passed into the method where it is updated and then changes saved
         [HttpPost]
-        public IActionResult Edit()
+        public IActionResult Save(Movie movie, int MovieID)
         {
-            context.SaveChanges();
+            //set the movie being updated
+            var MovieToOverwrite = context.Movies.Where(movie => movie.MovieID == MovieID).FirstOrDefault();
+
+            //Ensure form inputs are valid, if so override current entries
+            if (ModelState.IsValid)
+            {
+                //Update the values of the movie corresponding with the movieid passed in
+                MovieToOverwrite.Title = movie.Title;
+                MovieToOverwrite.Category = movie.Category;
+                MovieToOverwrite.Year = movie.Year;
+                MovieToOverwrite.Director = movie.Director;
+                MovieToOverwrite.Rating = movie.Rating;
+                MovieToOverwrite.Edited = movie.Edited;
+                MovieToOverwrite.LentTo = movie.LentTo;
+                MovieToOverwrite.Notes = movie.Notes;
+
+                //Save changes to the DB after being overridden
+                context.SaveChanges();
+                
+            }
+            //return asp validation summary
+            else
+            {
+                return View("Edit");
+            }
+
             return RedirectToAction("MovieList");
         }
 
