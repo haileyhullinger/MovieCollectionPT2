@@ -41,7 +41,7 @@
 
                 <!--button to edit-->
                 <td>
-                    <form asp-page-handler="Edit" method="post">
+                    <form asp-action="Edit" method="get">
                         <input type="hidden" name="MovieID"
                                value="@x.MovieID" />
                         <button type="submit" class="btn btn-sm btn-danger">

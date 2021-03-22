@@ -79,6 +79,25 @@ namespace HaileyHullingerAssignment9.Controllers
             return RedirectToAction("MovieList");
         }
 
+
+        //edit view, the method finds the movie where the movieID matches the one passed in, passes it to the edit view
+        [HttpGet] 
+        public IActionResult Edit(int MovieID)
+        {
+            var movie = context.Movies.Where(m => m.MovieID == MovieID).FirstOrDefault();
+
+            return View(movie);
+        }
+
+        [HttpPost]
+        public IActionResult Edit()
+        {
+            context.SaveChanges();
+            return RedirectToAction("MovieList");
+        }
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
