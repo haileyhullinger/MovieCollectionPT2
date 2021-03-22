@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Movie>
+<div>
+    <h2>Here is a list of all the movies in the Joel Hilton Film Collection*</h2> <br />
+    <table>
+        <thead>
+            <tr><th>Category   </th><th>Title   </th><th>Director   </th><th>Rating   </th><th>Edited?   </th> <th>Year(s)   </th> <th>Lent To: </th><th>Notes:  </th> <th></th></tr>
+        </thead>
+
+        <tbody>
+            <!--for loop to go through and list all the movies in the model-->
+            @foreach (HaileyHullingerAssignment9.Models.Movie x in Model)
+            {
+                <!--if statment to check if the movie's title is independence day. If the title is "Independence Day" it will not be shown the the models list.-->
+                @if (x.Title == "Independence Day")
+                {
+
+                }
+
+                else
+                {
+            <tr>
+                <td>@x.Category   </td>
+                <td>@x.Title   </td>
+                <td>@x.Director   </td>
+                <td>@x.Rating   </td>
+                <td>@x.Edited   </td>
+                <td>@x.Year     </td>
+                <td>@x.LentTo </td>
+                <td>@x.Notes  </td>
+                <!--button to remove-->
+                <td>
+                    <form asp-page-handler="Remove" method="post">
+                        <input type="hidden" name="MovieID"
+                               value="@Movie.MovieID" />
+                        <input type="hidden" name="returnUrl"
+                               value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Remove
+                        </button>
+                    </form>
+                </td>
+
+                <!--button to edit-->
+                <td>
+                    <form asp-page-handler="Edit" method="post">
+                        <input type="hidden" name="MovieID"
+                               value="@Movie.MovieID" />
+                        <input type="hidden" name="returnUrl"
+                               value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Edit
+                        </button>
+                    </form>
+                </td>
+            </tr>
+                }
+
+            }
+
+
+
+
+        </tbody>
+    </table>
+
+
+    <p>
+        <i>
+            *The movie “Independence Day" is not included in this list
+            because Joel once argued in a 4
+            th of July podcast that “Independence Day” beats
+            “Rocky IV” as the “Most American Movie Ever Made” which is obviously not true!
+        </i>
+    </p>
+
+
+
+</div>

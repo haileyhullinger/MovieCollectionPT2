@@ -1,0 +1,22 @@
+﻿@model HaileyHullingerAssignment9.Models.Movie
+
+
+<div>
+
+    <!--small validation that Independence Day will not be added. Currently it IS being added to the model, but we will not display it in the MovieList.cshtml page-->
+    @if (Model.Title == "Independence Day")
+    {
+        @:Actually, Independence Day does not count. You cannot add this movie because Joel once argued in a 4th of July podcast that “Independence Day” beats “Rocky IV” as the “Most American Movie Ever Made” which is obviously not true!
+    }
+    else
+    {
+        <h2>@Model.Title has been added to the Joel Hilton Film Collection </h2> <br />
+        @:Thank you!
+    }
+
+</div>
+<br />
+<div>
+    Click <a asp-action="MovieList">here</a> to see the complete movie list. <br />
+    Click <a asp-action="MovieForm">here</a> to add another movie.
+</div>
