@@ -3,7 +3,7 @@
     <h2>Here is a list of all the movies in the Joel Hilton Film Collection*</h2> <br />
     <table>
         <thead>
-            <tr><th>Category   </th><th>Title   </th><th>Director   </th><th>Rating   </th><th>Edited?   </th> <th>Year(s)   </th> <th>Lent To: </th><th>Notes:  </th> <th></th></tr>
+            <tr><th>Movie ID</th><th>Category   </th><th>Title   </th><th>Director   </th><th>Rating   </th><th>Edited?   </th> <th>Year(s)   </th> <th>Lent To: </th><th>Notes:  </th> <th></th><th></th></tr>
         </thead>
 
         <tbody>
@@ -19,6 +19,7 @@
                 else
                 {
             <tr>
+                <td>@x.MovieID</td>
                 <td>@x.Category   </td>
                 <td>@x.Title   </td>
                 <td>@x.Director   </td>
@@ -29,13 +30,11 @@
                 <td>@x.Notes  </td>
                 <!--button to remove-->
                 <td>
-                    <form asp-page-handler="Remove" method="post">
+                    <form asp-action="Delete" method="post">
                         <input type="hidden" name="MovieID"
-                               value="@Movie.MovieID" />
-                        <input type="hidden" name="returnUrl"
-                               value="@Model.ReturnUrl" />
+                               value="@x.MovieID" />
                         <button type="submit" class="btn btn-sm btn-danger">
-                            Remove
+                            Delete
                         </button>
                     </form>
                 </td>
@@ -44,9 +43,7 @@
                 <td>
                     <form asp-page-handler="Edit" method="post">
                         <input type="hidden" name="MovieID"
-                               value="@Movie.MovieID" />
-                        <input type="hidden" name="returnUrl"
-                               value="@Model.ReturnUrl" />
+                               value="@x.MovieID" />
                         <button type="submit" class="btn btn-sm btn-danger">
                             Edit
                         </button>
@@ -63,7 +60,7 @@
         </tbody>
     </table>
 
-
+    <br /><br /><br /><br />
     <p>
         <i>
             *The movie “Independence Day" is not included in this list

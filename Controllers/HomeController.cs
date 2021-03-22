@@ -52,7 +52,7 @@ namespace HaileyHullingerAssignment9.Controllers
                 context.SaveChanges();
 
                 //after movie is added to list of movies, redirect to the Confirmation page
-                return RedirectToAction("Confirmation");
+                return RedirectToAction("MovieLIst");
             }
 
             else
@@ -63,10 +63,20 @@ namespace HaileyHullingerAssignment9.Controllers
         }
 
         //action for loading the MovieList page
+        [HttpGet]
         public IActionResult MovieList()
         {
             //pass in database to view
             return View(context.Movies);
+        }
+
+        //if an ID is passed to this view, the movie is deleted from the list and redirects to movie list without the deleted movie
+        [HttpPost]
+        public IActionResult Delete(int MovieID)
+        {
+            context.Movies.Remove(context.Movies.Find(MovieID));
+            context.SaveChanges();
+            return RedirectToAction("MovieList");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -8,6 +8,7 @@ namespace HaileyHullingerAssignment9.Models
 {
     public class Movie
     {
+
         [Key]
         public int MovieID { get; set; }
 
